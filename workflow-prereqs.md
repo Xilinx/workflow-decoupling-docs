@@ -45,9 +45,9 @@ The decoupled workflow requires a mix of new and updated repositories.  The deta
 
 | Repository Name                    | Repository URL                                               | Branch Name                  |
 | ---------------------------------- | ------------------------------------------------------------ | ---------------------------- |
-| DTG++ (Generate System Devicetree) | [https://github.com/Xilinx/system-device-tree-xlnx](https://github.com/Xilinx/system-device-tree-xlnx) | Master                       |
-| Experimental `embeddedsw`          | [https://github.com/Xilinx/embeddedsw-experimental-dt-support](https://github.com/Xilinx/embeddedsw-experimental-dt-support) | Master                       |
-| Lopper                             | [https://github.com/devicetree-org/lopper](https://github.com/devicetree-org/lopper) | Master                       |
+| SDTGen (Generate System Devicetree) | [https://github.com/Xilinx/system-device-tree-xlnx](https://github.com/Xilinx/system-device-tree-xlnx) | xilinx-v2021.1-sdt-experimental                       |
+| Experimental `embeddedsw`          | [https://github.com/Xilinx/embeddedsw-experimental-dt-support](https://github.com/Xilinx/embeddedsw-experimental-dt-support) | xilinx-v2021.1-sdt-experimental                       |
+| Lopper                             | [https://github.com/devicetree-org/lopper](https://github.com/devicetree-org/lopper) | v0.2021.x                       |
 | Yocto Manifests                    | [http://github.com/Xilinx/yocto-manifests.git](http://github.com/Xilinx/yocto-manifests.git) | 2021-experimental-dt-support |
 | U-Boot                             | [https://github.com/Xilinx/u-boot-xlnx](https://github.com/Xilinx/u-boot-xlnx) | Master                       |
 | Linux                              | [https://github.com/Xilinx/linux-xlnx](https://github.com/Xilinx/linux-xlnx) | Master                       |

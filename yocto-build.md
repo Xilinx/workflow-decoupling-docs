@@ -1,12 +1,12 @@
 # Yocto Project Build Infrastructure
 
-The majority of the decoupled workflow tasks inside the software developer persona are automated via the the Yocto Project build environment.  While it is possible to run all of the commands - such as `lopper` -manually they are currently only documented in the context of a Yocto Project build workflow.
+The majority of the decoupled workflow tasks inside the software developer persona are automated via the Yocto Project build environment.  While it is possible to run all of the commands - such as `lopper` -manually they are currently only documented in the context of a Yocto Project build workflow.
 
 # Setting Up the System Devicetree
 
 Before proceeding be sure to place the system devicetree files provided by the hardware developer persona in a location accessible by the user which will be running the Yocto builds.
 
-For Versal ACAP users, all of the required data should already be located in the system devicetree directory.  Zynq UltraScale+ MPSoC designs require the the the `psu_init` files (`psu_init.h` and `psu_init.c`) to be manually copied into the same directory as `system-top.dts`. 
+For Versal ACAP users, all of the required data should already be located in the system devicetree directory.  Zynq UltraScale+ MPSoC designs require the `psu_init` files (`psu_init.h` and `psu_init.c`) to be manually copied into the same directory as `system-top.dts`.
 
 # Configure the Yocto Project Manifests
 
@@ -32,7 +32,7 @@ The next step is to set up the Yocto Project's SDK environment to work with the 
 #source the setupsdk command
 $ . ./setupsdk build
 ```
-Note that after completion, the `setupsdk` will move the current directory to `build`.  The following series of commands should be run from their rather than the workspace root.
+Note that after completion, the `setupsdk` will move the current directory to `build`.  The following series of commands should be run from there rather than the workspace root.
 
 Next, the `meta-xilinx-setup` layer should be executed with the `bitbake` command.  This command is run with the `MACHINE` prefix corresponding to the machine type which should be configured.  A complete set of valid machines can be found in `/sources/meta-xilinx/meta-xilinx-bsp/conf/machine/` but a quick summary of common ones is provided below.
 
@@ -50,7 +50,7 @@ Next, the `meta-xilinx-setup` layer should be executed with the `bitbake` comman
 #configure the Xilinx environment with meta-xilinx-setup
 $ MACHINE=zcu102-zynqmp bitbake meta-xilinx-setup
 ```
-The `meta-xilinx-setup` step can take quite a while and requires a lot of space in `$TMPDIR`.  It is important to make sure that `$TMPDIR` is located in space that it local (such as `/tmp`) , especially if the workspace directory is on network-attached storage.
+The `meta-xilinx-setup` step can take quite a while and requires a lot of space in `$TMPDIR`.  It is important to make sure that `$TMPDIR` is located in space that is local (such as `/tmp`) , especially if the workspace directory is on network-attached storage.
 
 After executing `meta-xilinx-setup` the next step is to extract and install the SDK. The `-d` argument allows you to specify the sub-directory where the SDK will be installed.  In the example above it is put in the `prestep` sub-directory.
 
@@ -95,7 +95,7 @@ This command will consume the configuration data located at `<path_to_conf>`.  T
 
 **NOTE: the --help option incorrectly states that the second argument is a binary .dtb file**
 
-During the device tree processing, bare-metal components will be analyzed and appropriate `.conf` files for them will be generated and placed in the project's `/conf/` directory.  Do not proceed with the instructions below is `dt-processor.sh` does not complete correctly as these output files are mandatory for the remainder of the build.
+During the device tree processing, bare-metal components will be analyzed and appropriate `.conf` files for them will be generated and placed in the project's `/conf/` directory.
 
 # Configuring the `local.conf` for Bare-Metal Components
 
@@ -141,7 +141,6 @@ PDI_PATH = "__PATH TO PDI FILE HERE__"
 # Use the full path to the corresponding PDI file, such as:
 PDI_PATH = "/proj/yocto/vck190-sdt/base-design.pdi"
 
-# _EXIT THE NEW SHELL_  return the build environment
 ```
 
 **NOTE: when compiling for Versal ACAP platforms, the path full path to the PDI must be specified**
@@ -185,8 +184,6 @@ Zynq UltraScale+ MPSoC
 4) `petalinux-image-minimal-versal-generic.cpio.gz.u-boot`
 
 # Building the Bootable Image (`BOOT.BIN`)
-
-By default. the build process does not currently automate building the final bootable image - namely, the `BOOT.BIN` file.  This process can be automated separately using the open source [Bootgen](https://github.com/Xilinx/bootgen) tool or the documentation found in [UG1283 - Bootgen User Guide](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2021_1/ug1283-bootgen-user-guide.pdf).
 
 If you would like to include the generation of the bootable image in the standard `bitbake` process, specify the `BIF_FILE_PATH` variable inside the `conf/local.conf` file.  The `.BIF` file syntax is documented in [UG1283 - Bootgen User Guide](https://www.xilinx.com/support/documentation/sw_manuals/xilinx2021_1/ug1283-bootgen-user-guide.pdf) and must be provided manually.  Then, `bitbake` can be run directly with the following command:
 
