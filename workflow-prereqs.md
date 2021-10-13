@@ -10,7 +10,8 @@ For the hardware EDA persona, the following Xilinx EDA tools are required:
 
 # Host Machine Dependencies
 
-The decoupled workflow environment has been primarily tested on Ubuntu-based operating systems but should work on Red Hat compatible machines as well so long as they are supported by the Yocto Project build system.
+The decoupled workflow environment has been primarily tested on Ubuntu-based operating systems but should work on Red Hat compatible machines as well so long as they are supported by the Yocto Project build system and pre requisites satisfy as per Yocto project documentation.
+http://docs.yoctoproject.org/2.3.3/singleindex.html#compatible-linux-distribution
 
 Ubuntu operating systems must be newer than Ubuntu 18.04 LTS.
 
@@ -38,9 +39,6 @@ To install these packages, the following commands can be used to simplify things
 `yum install gawk wget git-core diffstat unzip texinfo gcc-multilib build-essential chrpath socat` 
 
 Also note that if you are building in an environment with `$HOME` or scratchpad directories mounted to NFS shares that the `$TMPDIR` variable is set to a local `/tmp`. 
-
-http://docs.yoctoproject.org/3.3.3/singleindex.html#compatible-linux-distribution
-http://docs.yoctoproject.org/3.3.3/singleindex.html#required-git-tar-python-and-gcc-versions
 
 # Required Source Code Repositories
 
