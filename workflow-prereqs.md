@@ -10,7 +10,7 @@ For the hardware EDA persona, the following Xilinx EDA tools are required:
 
 # Host Machine Dependencies
 
-The decoupled workflow environment has been primarily tested on Ubuntu-based operating systems but should work on Red Hat or Fedora compatible machines as well so long as they are supported by the Yocto Project build system.
+The decoupled workflow environment has been primarily tested on Ubuntu-based operating systems but should work on Red Hat compatible machines as well so long as they are supported by the Yocto Project build system.
 
 Ubuntu operating systems must be newer than Ubuntu 18.04 LTS.
 
