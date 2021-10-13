@@ -39,6 +39,9 @@ To install these packages, the following commands can be used to simplify things
 
 Also note that if you are building in an environment with `$HOME` or scratchpad directories mounted to NFS shares that the `$TMPDIR` variable is set to a local `/tmp`. 
 
+http://docs.yoctoproject.org/3.3.3/singleindex.html#compatible-linux-distribution
+http://docs.yoctoproject.org/3.3.3/singleindex.html#required-git-tar-python-and-gcc-versions
+
 # Required Source Code Repositories
 
 The decoupled workflow requires a mix of new and updated repositories.  The details are noted below.
