@@ -1,0 +1,58 @@
+# Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+# SPDX-License-Identifier: MIT
+# Peripheral Memory Split and Share Domain Example
+# Ex: This example is for versal vck190 default petaliux bsp design system device-tree.
+resource_groups:
+    shared_dev:
+        access: 
+          - dev: dma0 
+            flags: default
+    shared_mem:
+        memory:
+          - start: 0x40000000
+            size: 512M
+            flags: default
+
+domains:
+    linux: 
+        os,type: linux
+        id: 0x0
+        cpus:
+          - cluster: cpus_a53
+            cpumask: 0x3
+            mode:
+              secure: false
+              el: 0x1
+        access: 
+          - dev: i2c1 
+            flags: default
+          - dev: i2c2 
+            flags: default
+          - dev: can1 
+            flags: default
+        memory: 
+          - start: 0x0
+            size: 1G
+            flags: default
+        include:
+          - shared_mem
+          - shared_dev
+    bm_r5:
+        os,type: baremetal
+        id: 0x2
+        cpus:
+          - cluster: cpus_r5
+            cpumask: 0x2
+            mode:
+              secure: false
+              el: 0x3
+        access:  
+          - dev: lpd_dma_chan7 
+            flags: default
+        memory:  
+          - start: 0x60000000
+            size: 512M
+            flags: default
+        include:
+          - shared_mem
+          - shared_dev

@@ -91,6 +91,12 @@ Next, run the devicetree processor script located inside the `prestep` area.  Th
 $ <yocto-build-directory>/prestep/dt-processor.sh <path-to-yocto-conf> <path-to-system-top.dts>
 ```
 
+Note:
+Incase if you are using yocto-manifests branch "2021-experimental-dt-support-update-1" and targetting for domains testing please use below instructions
+```
+$ <yocto-build-directory>/prestep/dt-processor.sh -c <path-to-yocto-conf> -s <path-to-system-top.dts> -d <path-to-domain-yaml-file>
+```
+
 This command will consume the configuration data located at `<path_to_conf>`.  This is the path to the directory which contains `local.conf`.  The command also needs a full path (including filename) to the location of the system devicetree file (`system-top.dts`) which was passed from the hardware developer persona.
 
 **NOTE: the --help option incorrectly states that the second argument is a binary .dtb file**
