@@ -84,6 +84,7 @@ The current version of the preview release has the following scope limitations:
 - Versal ACAP support for booting Linux on hardware
 - Support exists only for a subset of `embeddedsw` components in this preview release, repo for the same can be found at [embeddedsw-experimental-dt-support](https://github.com/Xilinx/embeddedsw-experimental-dt-support)
 - Cortex-R5 CPU0 is supported on Xilinx Zynq UltraScale+ MPSoC and Versal ACAP platforms
+- Basic domain yaml support to partition the system into Linux and baremetal domains. This support is available through Yocto project manifests branch **2021-experimental-dt-support-update-1**. For more info on domain yaml, refer to [domain-yaml.md](domain-yaml.md) and [yocto-build.md](yocto-build.md)
 
 **Future Roadmap:**
 
