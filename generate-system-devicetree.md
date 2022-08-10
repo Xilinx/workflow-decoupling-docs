@@ -41,11 +41,11 @@ Note where the .xsa hardware handoff file is stored as it will be needed for gen
 
 The final task required from the hardware design persona is the creation of the system devicetree using the SDTGen tool.  Start by fetching the SDTGen source code.  This may require an additional host system tool (eg, git) on the hardware persona machine.  If the hardware persona is doing their design work on a Linux-based host please see the [Workflow Prerequisites](workflow-prereqs.md) page.  If the hardware persona is working on a Windows-based development machine they can use a tool such as [TortoiseGit](https://tortoisegit.org/) to clone the SDTGen source code.
 
-For Linux-based EDA hosts, fetch the SDTGen source code as follows:
+For Linux-based EDA hosts, fetch the SDTGen source code and fetch the appropriate branch as shown below:
 
 ```
 $ git clone https://github.com/Xilinx/system-device-tree-xlnx.git
-$ cd system-device-tree-xlnx
+$ git checkout -b xlnx_rel_v2022.1_sdt_experimental_beta origin/xlnx_rel_v2022.1_sdt_experimental_beta
 ```
 
 The screenshots below shows fetching the SDTGen source code on a Windows-based host using TortoiseGit.
@@ -58,77 +58,64 @@ The screenshots below shows fetching the SDTGen source code on a Windows-based h
 
 # Configure SDTGen
 
-The steps below assume that Vivado was closed after implementing the design because Vivado is re-launched into the console-only Tcl mode.  The same steps can be completed from an already running Vivado session so long as the implemented design is closed before continuing.
+The steps below assume that the hardware persona also has Vitis installed on his machine and added to path. 
 
-If you intend to launch Vivado in Tcl mode do so with the following command at the Linux terminal
-
-```
-$ vivado -mode tcl
-```
-
-Once in the Vivado environment, start the S-DT generation process by sourcing the SDTGen Tcl script from the repository that was cloned:
-
-```
-Vivado% source -notrace device_tree/data/device_tree.tcl
-```
-
-This bring the SDTGen tool into the Vivado Tcl environment.  The first command to use is the `set_dt_param` command.  This command has several options that are required.  The details of these options can be found by executing the Tcl help in the Vivado terminal.
+Inorder to use system-device-tree-xlnx from cloned path, user need to follow below steps
+- Copy the scripts folder from Vitis installed path to your local path.
+    cp -rf <path to vitis>/scripts <local folder path where user wants to copy the scripts folder>(Eg: cp -rf /usr/bin/vitis/scripts /tmp/path/)
+- Set MYVIVADO environment variable with this path (ex: #export MYVIVADO=/tmp/path/)
+- Now open sdtgen.tcl file from the copied scripts folder (ex:/tmp/path/scripts/xsct/sdtgen/sdtgen.tcl) and update it to source your own local device_tree.tcl that is present in cloned system-device-tree-xlnx folder at device_tree/data/device_tree.tcl. 
+ 
+# Generate the System Devicetree (S-DT) File
+ 
+Launch xsct with the following command at the Linux terminal
 
 ```
-Vivado% set_dt_param -help
+$ xsct
+ 
+```
+
+This bring the SDTGen tool into the xsct Tcl environment.  The first command to use is the `sdtgen set_dt_param` command.  This command has several options that are required.  The details of these options can be found by executing the sdtgen set_dt_param help in the xsct terminal.
+
+```
+xsct% sdtgen set_dt_param -help
 ```
 
 Of particular interest (and required) are:
 
-* `--dir` - the directory where the system devicetree file will be generated
-* `--xsa` - the path to the Vivado hardware handoff (.xsa) file
+* `-dir` - the directory where the system devicetree file will be generated
+* `-xsa` - the path to the Vivado hardware handoff (.xsa) file
+* '-repo - the path to the cloned system-device-tree-xlnx repo
 
 Some arguments carry default values even if not specified:
 
-* `--repo` - The path to the SDTGen (`device_tree.tcl`) source code.  The default is the current working directory.
-* `--board_dts` - An optional reference to a known board DTS file.  The default value is "none"
+* `-board_dts` - An optional reference to a known board DTS file.  The default value is "none"
   * Zynq UltraScale+ MPSoC example: `zcu102-rev1.0`
   * Versal ACAP example: `versal-vck190-reva`
-* `--debug` - Enable or disable debug mode. The default value is "disabled".  Set to "enable" to enable.
-* `--trace` -  Enable or disable SDTGen execution tracing for additional debug.  The default value is "disabled". Set to "enable" to enable.
+* `-debug` - Enable or disable debug mode. The default value is "disabled".  Set to "enable" to enable.
+* `-trace` -  Enable or disable SDTGen execution tracing for additional debug.  The default value is "disabled". Set to "enable" to enable.
 
-The `set_dt_param` command can be used to set all of the parameters at one time
+The `sdtgen set_dt_param` command can be used to set all of the parameters at one time
 
 ```
-Vivado% set_dt_param --board_dts <board file> --dir <directory name> --xsa <Vivado XSA file>
+xsct% sdtgen set_dt_param -board_dts <board file> -dir <directory name> -xsa <Vivado XSA file>
 ```
 
 or it can be used sequentially to set each parameter individually. This can be useful in programmatic execution.
 
 ```
-Vivado% set_dt_param --dir output_dts
-Vivado% set_dt_param --xsa design_1_wrapper.xsa
-Vivado% set_dt_param --board_dts zcu102-rev1.0
+xsct% sdtgen set_dt_param -dir output_dts
+xsct% sdtgen set_dt_param -xsa design_1_wrapper.xsa
+xsct% sdtgen set_dt_param -board_dts zcu102-rev1.0
 ```
 
-Conversely, the current values of each parameter can be retrieved using the `get_dt_param` command in the same manner as the `set_dt_param` command.
+Conversely, the current values of each parameter can be retrieved using the `sdtgen get_dt_param` command in the same manner as the `sdtgen set_dt_param` command.
 
-# Generate the System Devicetree (S-DT) File
+Once all of the parameters are set properly, the system devicetree file can be generated using the `sdtgen generate_sdt` command.  
 
-Once all of the parameters are set properly, the system devicetree file can be generated using the `generate_sdt` command.  This process will generate a number of files in different locations as summarized below:
+ xsct% sdtgen generate_sdt
 
-For Zynq UltraScale+ MPSoC devices, SDTGen will generate the following files in the same directory as the hardware handoff (.xsa) file:
-
-* `psu_init.tcl`
-* `psu_init.html` (The Zynq UltraScale+ configuration in HTML viewable form)
-* `psu_init.c`
-* `psu_init.h`
-* `psu_init_gpl.c`
-* `psu_init_gpl.h`
-* `system_wrapper.bit`
-
-For Versal ACAP devices, SDTGen will generate the following files in the same directory as the hardware handoff (.xsa) file:
-
-* `<export_file_name>.pdi`
-
-For both device families, these additional files will be needed during the Yocto Project build but me specified manually in the `conf/local.conf` file of the Yocto Project workspace.
-
-In addition, the SDTGen tool will generate the system devicetree files in the path specified in the `--dir` parameter:
+This command will generate below system devicetree files in the path specified in the `-dir` parameter:
 
 **Zynq UltraScale+ MPSoC**
 
@@ -147,11 +134,31 @@ In addition, the SDTGen tool will generate the system devicetree files in the pa
 * `pcw.dtsi` - This devicetree file includes the configuration information for all peripherals located in the Versal Processing System and specified as part of the CIPS IP in Vivado
 * `pl.dtsi` - This devicetree file includes the configuration information for all peripherals located in the Versal Programmable Logic
 
+ 
+Along with system device tree files, some additional hw files will be needed during the Yocto Project build and yocto expects these files to be present in the directory same as system device tree files i.e directory specified with -dir option.  Inorder to copy these files to -dir path, use below command at xsct which copies these files from xsa to path specified with -dir.
+ 
+xsct% sdtgen copy_hw_files
+ 
+ For Zynq UltraScale+ MPSoC devices, SDTGen will copy the following hw files in the same directory as the system device tree files:
+
+* `psu_init.tcl`
+* `psu_init.html` (The Zynq UltraScale+ configuration in HTML viewable form)
+* `psu_init.c`
+* `psu_init.h`
+* `psu_init_gpl.c`
+* `psu_init_gpl.h`
+* `system_wrapper.bit`
+
+For Versal ACAP devices, SDTGen will copy the following hw files in the same directory as the system device tree files:
+
+* `<export_file_name>.pdi`
+
+
 Additionally, devicetree binding information will be located in the `include` sub-directory various peripherals found in the design.
 
 The hardware developer persona must share all of the contents of the path specified in the `--dir` parameter with the software developer persona.
 
 # Notes & Exceptions
 
-The files generated in the same directory as the hardware handoff (`.xsa`) file are still needed for use by the software developer persona.  These files (eg, `psu_init.c`, `psu_init.h`, `<export_file_name>.pdi`, etc) should be included in the set of files shared from the hardware developer persona to the software developer persona.
+The files generated in the same directory as the system device tree files are still needed for use by the software developer persona.  These files (eg, `psu_init.c`, `psu_init.h`, `<export_file_name>.pdi`, etc) should be included in the set of files shared from the hardware developer persona to the software developer persona.
 

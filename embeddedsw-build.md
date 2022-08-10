@@ -2,24 +2,8 @@
 
 The Xilinx `embeddedsw` repository contains a vast collection of bare-metal drivers, libraries, and applications.   As noted in the [Workflow Prerequisites](workflow-prereqs.md) page, the instructions below require the updated & modified version of the `embeddedsw-experimental-dt-support` repository from the [Xilinx GitHub](https://github.com/Xilinx).  The traditional `embeddedsw` repository will not work.
 
-Keep in mind that not all drivers and libraries have currently been ported to support the decoupled workflow.  Few of these exceptions are noted below:
-
-* `wdttb` driver
-* `prc`, `prd` drivers
-* `pmonpsv` driver
-* `axipmon` driver
-* `mailbox` driver
-* `mutex` driver
-* `sysmon`, `xadcps` drivers
-* `trafgen` driver
-* `usbps` (PS) driver
-* `axiusb` (PL) driver
-* `clk_wiz` driver
-* `tft` driver
-* `xilisf` library
-* `xilflash` library
-
-To be precise any component source folder which doesn't contain CMakeLists.txt file can be treated as not supported in the decoupled workflow.
+Keep in mind that not all drivers and libraries that are in traditional embeddedsw repo have currently been ported to support the decoupled workflow.  
+To be precise any component source folder that exists in traditional embeddedsw repo and doesnt exist in this 'embeddedsw-experimental-dt-support'can be treated as not supported in the decoupled workflow.
 
 Building the bare-metal drivers, libraries, and applications leverages the `generic-machine` type of `MACHINE` variable.  Please see the [Yocto Build page](yocto-build.md) for valid machine type names.
 
@@ -33,7 +17,7 @@ $ MACHINE=zynqmp-generic bitbake mc:cortexa72-versal-baremetal:emacps-example
 A similar syntax is used to build a bare-metal application.  Note that all **required** bare-metal firmware applications are built as part of the standard [Yocto Project build process](yocto-build.md).
  ```
 # Build versal plm system:
-$ MACHINE=versal-generic bitbake mc:microblaze-plm:plm-firmware mc:microblaze-psm:psm-firmware
+$ MACHINE=versal-generic bitbake mc:microblaze-pmc:plm-firmware mc:microblaze-psm:psm-firmware
  ```
 Some applications are well-known "template" application such as the standard "Hello World" and "Peripheral Test" applications.  These can also be built directly.
 ```

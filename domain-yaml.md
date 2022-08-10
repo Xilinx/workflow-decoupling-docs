@@ -11,7 +11,7 @@ A domain constitutes of memory spaces and devices seen by an execution environme
 A set of HW resources that includes CPUs, memory-mapped devices, and buses that can have the same life cycle.  As an example, all APU cores and the devices assigned to it could be one subsystem. Similarly RPUs along with the devices assigned to it can constitute a subsystem. Alternatively, if needed APU cores along with the assigned devices and RPU cores along with assigned devices could constitute a single  subsystem. A subsystem can be defined as the union of one or multiple domains.
 For example: A domain that comprises Linux (running at EL1-NS) along with the relevant devices can also be defined as a subsystem. Similarly a RPU domain might be identical to a RPU subsystem.
 
-As of today we are supporting only the basic baremetal and linux domain use cases, other domain use cases(OpenAMP etc..) are planned in subsequent releases.
+This document covers only the basic baremetal and linux domain use cases, other domain use case like OpenAMP is covered at [this page](openamp-build.md).
 
 #### Yocto Build Infrastructure
-Yocto related support for domains is available in 2021-experimental-dt-support-update-1 branch, please use this branch for domain testing.
+Yocto related support for domains is available in xlnx-rel-v2022.1-sdt-experimental-beta branch, please use this branch for domain testing.
