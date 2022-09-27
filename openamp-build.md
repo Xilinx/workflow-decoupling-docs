@@ -59,9 +59,9 @@ See UG1186 for documentation on this symbol.
 #### Example YAML Overlays                                                      
 Linked below is the location of the Versal and ZU+ overlays.                    
                                                                                 
-Versal: https://gitenterprise.xilinx.com/Yocto/meta-openamp/blob/2022/meta-xilinx-standalone-experimental/recipes-openamp/open-amp/overlays/openamp-overlay-versal.yaml#L69
+Versal: https://github.com/Xilinx/meta-openamp/blob/rel-v2022.1/meta-xilinx-standalone-experimental/recipes-openamp/open-amp/overlays/openamp-overlay-versal.yaml#L69
                                                                                 
-ZU+: https://gitenterprise.xilinx.com/Yocto/meta-openamp/blob/2022/meta-xilinx-standalone-experimental/recipes-openamp/open-amp/overlays/openamp-overlay-zynqmp.yaml#L63
+ZU+: https://github.com/Xilinx/meta-openamp/blob/rel-v2022.1/meta-xilinx-standalone-experimental/recipes-openamp/open-amp/overlays/openamp-overlay-zynqmp.yaml#L63
                                                                                 
 You can also set your own copy of the overlay and add it to the local.conf as follows.
 ```                                                                                    
