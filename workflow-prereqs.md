@@ -6,8 +6,8 @@ This page details the host build system prerequisite requirements for using the 
 
 For the hardware EDA persona, the following Xilinx EDA tools are required:
 
-* Xilinx Vivado ML 2022.1
-* Xilinx Vitis 2022.1
+* Xilinx Vivado ML 2023.1
+* Xilinx Vitis 2023.1
 
 # Host Machine Dependencies
 
@@ -47,13 +47,13 @@ The decoupled workflow requires a mix of new and updated repositories.  The deta
 
 | Repository Name                    | Repository URL                                               | Branch Name                  |
 | ---------------------------------- | ------------------------------------------------------------ | ---------------------------- |
-| SDTGen (Generate System Devicetree) | [https://github.com/Xilinx/system-device-tree-xlnx](https://github.com/Xilinx/system-device-tree-xlnx) | xlnx_rel_v2022.1_sdt_experimental_beta                       |
-| Experimental `embeddedsw`          | [https://github.com/Xilinx/embeddedsw-experimental-dt-support](https://github.com/Xilinx/embeddedsw-experimental-dt-support) | xlnx_rel_v2022.1_sdt_experimental_beta                       |
+| SDTGen (Generate System Devicetree) | [https://github.com/Xilinx/system-device-tree-xlnx](https://github.com/Xilinx/system-device-tree-xlnx) | xlnx_rel_v2023.1_sdt_experimental_beta                       |
+| Experimental `embeddedsw`          | [https://github.com/Xilinx/embeddedsw-experimental-dt-support](https://github.com/Xilinx/embeddedsw-experimental-dt-support) | xlnx_rel_v2023.1_sdt                   |
 | Lopper                             | [https://github.com/devicetree-org/lopper](https://github.com/devicetree-org/lopper) | v0.2022.x                      |
- | Yocto Manifests                    | [http://github.com/Xilinx/yocto-manifests.git](http://github.com/Xilinx/yocto-manifests.git) | xlnx-rel-v2022.1_update2_sdt_experimental_beta |
-| U-Boot                             | [https://github.com/Xilinx/u-boot-xlnx](https://github.com/Xilinx/u-boot-xlnx) | xlnx_rel_v2022.1                       |
-| Linux                              | [https://github.com/Xilinx/linux-xlnx](https://github.com/Xilinx/linux-xlnx) | xlnx_rel_v2022.1                       |
-| Arm Trusted Firmware / TF-A        | [https://github.com/Xilinx/arm-trusted-firmware](https://github.com/Xilinx/arm-trusted-firmware) | xlnx_rel_v2022.1                       |
+ | Yocto Manifests                    | [http://github.com/Xilinx/yocto-manifests.git](http://github.com/Xilinx/yocto-manifests.git) | xlnx-rel-v2023.1 |
+| U-Boot                             | [https://github.com/Xilinx/u-boot-xlnx](https://github.com/Xilinx/u-boot-xlnx) | xlnx_rel_v2023.1                       |
+| Linux                              | [https://github.com/Xilinx/linux-xlnx](https://github.com/Xilinx/linux-xlnx) | xlnx_rel_v2023.1                       |
+| Arm Trusted Firmware / TF-A        | [https://github.com/Xilinx/arm-trusted-firmware](https://github.com/Xilinx/arm-trusted-firmware) | xlnx_rel_v2023.1                       |
 |                                    |                                                              |                              |
 |                                    |                                                              |                              |
 

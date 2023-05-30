@@ -10,16 +10,16 @@ For Versal ACAP users, all of the required data should already be located in the
 
 # Configure the Yocto Project Manifests
 
-The Yocto Project configuration uses the Repo tool to download and configure the Yocto Project environment.  Xilinx provides extensive notes on using the Repo tool with Xilinx repositories on the [Xilinx Wiki](https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18841862/Install+and+Build+with+Xilinx+Yocto).  Also note that while the Yocto manifests are fetched from the standard Xilinx GitHub area, they are located inside the `v2022.1_update2_sdt_experimental_beta` tag.  The instructions for using repo are written [here](https://github.com/Xilinx/yocto-manifests/) but summarized below for brevity.
+The Yocto Project configuration uses the Repo tool to download and configure the Yocto Project environment.  Xilinx provides extensive notes on using the Repo tool with Xilinx repositories on the [Xilinx Wiki](https://xilinx-wiki.atlassian.net/wiki/spaces/A/pages/18841862/Install+and+Build+with+Xilinx+Yocto).  Also note that while the Yocto manifests are fetched from the standard Xilinx GitHub area, they are located inside the `v2023.1` tag.  The instructions for using repo are written [here](https://github.com/Xilinx/yocto-manifests/) but summarized below for brevity.
 
 ```
 $ mkdir workspace
 $ cd workspace
 $ curl https://storage.googleapis.com/git-repo-downloads/repo > repo
 $ chmod a+x repo
-$ ./repo init git://github.com/Xilinx/yocto-manifests.git  -b refs/tags/xlnx-rel-v2022.1_update2_sdt_experimental_beta
+$ ./repo init git://github.com/Xilinx/yocto-manifests.git  -b refs/tags/xlnx-rel-v2023.1
 $ ./repo sync
-$ ./repo start xlnx-rel-v2022.1_update2_sdt_experimental_beta --all
+$ ./repo start xlnx-rel-v2023.1 --all
 ```
 
 ![Yocto Repo Init Stage](resources/yocto_repo_init.png)
@@ -72,7 +72,7 @@ After executing `meta-xilinx-setup` the next step is to extract and install the 
 
 ```
 #install the SDK into the system
-$ ./tmp/deploy/sdk/x86_64-xilinx-nativesdk-prestep-2022.1_dev.sh -d prestep -y
+$ ./tmp/deploy/sdk/x86_64-xilinx-nativesdk-prestep-2023.1_dev.sh -d prestep -y
 ```
 
 # Processing the System Devicetree Files
@@ -97,43 +97,57 @@ Example of the content that will be copied with -l option to local.conf while ru
 **Zynq UltraScale+ MPSoC**
 
 ```
-# Adjust BASE_TMPDIR if you want to move the tmpdirs elsewhere
-BASE_TMPDIR = "${TOPDIR}"
-require conf/cortexa53-zynqmp-linux.conf
-SYSTEM_DTFILE = "/proj/yocto/zcu_sdt/system-top.dts"
-BBMULTICONFIG += " cortexa53-zynqmp-fsbl-baremetal cortexa53-zynqmp-baremetal cortexa53-zynqmp-freertos cortexr5-zynqmp-fsbl-baremetal cortexr5-zynqmp-baremetal cortexr5-zynqmp-freertos microblaze-pmu"
-FSBL_DEPENDS = ""
-FSBL_MCDEPENDS = "mc::cortexa53-zynqmp-fsbl-baremetal:fsbl-firmware:do_deploy"
-FSBL_DEPLOY_DIR = "${BASE_TMPDIR}/tmp-cortexa53-zynqmp-fsbl-baremetal/deploy/images/${MACHINE}"
-R5FSBL_DEPENDS = ""
-R5FSBL_MCDEPENDS = "mc::cortexr5-zynqmp-fsbl-baremetal:fsbl-firmware:do_deploy"
-R5FSBL_DEPLOY_DIR = "${BASE_TMPDIR}/tmp-cortexr5-zynqmp-fsbl-baremetal/deploy/images/${MACHINE}"
-PMU_DEPENDS = ""
-PMU_MCDEPENDS = "mc::microblaze-pmu:pmu-firmware:do_deploy"
-PMU_FIRMWARE_DEPLOY_DIR = "${BASE_TMPDIR}/tmp-microblaze-pmu/deploy/images/${MACHINE}"
+# Avoid errors in some baremetal configs as these layers may be present
+# but are not used.  Note the following lines are optional and can be
+# safetly disabled.
+SKIP_META_VIRT_SANITY_CHECK = "1"
+SKIP_META_SECURITY_SANITY_CHECK = "1"
+SKIP_META_TPM_SANITY_CHECK = "1"
+
+# Each multiconfig will define it's own TMPDIR, this is the new default based
+# on BASE_TMPDIR for the Linux build
+TMPDIR = "${BASE_TMPDIR}/tmp"
+
+# Use the newly generated MACHINE
+MACHINE = "xlnx-zynqmp-zcu102-rev1-0"
+
+# All of the TMPDIRs must be in a common parent directory. This is defined
+# as BASE_TMPDIR.
+# Adjust BASE_TMPDIR if you want to move the tmpdirs elsewhere, such as /tmp
+BASE_TMPDIR ?= "${TOPDIR}"
+
+# The following is the full set of multiconfigs for this configuration
+# A large list can cause a slow parse.
+BBMULTICONFIG ?= " cortexa53-0-zynqmp-fsbl-baremetal cortexa53-0-zynqmp-baremetal cortexa53-0-zynqmp-freertos cortexa53-1-zynqmp-baremetal cortexa53-1-zynqmp-freertos cortexa53-2-zynqmp-baremetal cortexa53-2-zynqmp-freertos cortexa53-3-zynqmp-baremetal cortexa53-3-zynqmp-freertos cortexr5-0-zynqmp-fsbl-baremetal cortexr5-0-zynqmp-baremetal cortexr5-0-zynqmp-freertos cortexr5-1-zynqmp-baremetal cortexr5-1-zynqmp-freertos microblaze-0-pmu"
+# Alternatively trim the list to the minimum
+#BBMULTICONFIG = " cortexa53-0-zynqmp-fsbl-baremetal microblaze-0-pmu"
 ```
 
 **Versal ACAP:**
 
 ```
 # Adjust BASE_TMPDIR if you want to move the tmpdirs elsewhere
-BASE_TMPDIR = "${TOPDIR}"
-require conf/cortexa72-versal-linux.conf
-SYSTEM_DTFILE = "/proj/yocto/vck190-sdt/system-top.dts"
-BBMULTICONFIG += " cortexa72-versal-baremetal cortexa72-versal-freertos microblaze-pmc microblaze-psm cortexr5-versal-baremetal cortexr5-versal-freertos"
-PLM_DEPENDS = ""
-PLM_MCDEPENDS = "mc::microblaze-pmc:plm-firmware:do_deploy"
-PLM_DEPLOY_DIR = "${BASE_TMPDIR}/tmp-microblaze-pmc/deploy/images/${MACHINE}"
-PSM_DEPENDS = ""
-PSM_MCDEPENDS = "mc::microblaze-psm:psm-firmware:do_deploy"
-PSM_FIRMWARE_DEPLOY_DIR = "${BASE_TMPDIR}/tmp-microblaze-psm/deploy/images/${MACHINE}"
-PDI_PATH = "__PATH TO PDI FILE HERE__"
+SKIP_META_VIRT_SANITY_CHECK = "1"
+SKIP_META_SECURITY_SANITY_CHECK = "1"
+SKIP_META_TPM_SANITY_CHECK = "1"
 
-# NOTE: On versal, you MUST specify the PDI file as directed by the instructions.
-# such as: PDI_PATH = "__PATH TO PDI FILE HERE__"
-# Use the full path to the corresponding PDI file, such as:
-PDI_PATH = "/proj/yocto/vck190-sdt/base-design.pdi"
+# Each multiconfig will define it's own TMPDIR, this is the new default based
+# on BASE_TMPDIR for the Linux build
+TMPDIR = "${BASE_TMPDIR}/tmp"
 
+# Use the newly generated MACHINE
+MACHINE = "xlnx-versal-vck190-reva-x-ebm-01-reva"
+
+# All of the TMPDIRs must be in a common parent directory. This is defined
+# as BASE_TMPDIR.
+# Adjust BASE_TMPDIR if you want to move the tmpdirs elsewhere, such as /tmp
+BASE_TMPDIR ?= "${TOPDIR}"
+
+# The following is the full set of multiconfigs for this configuration
+# A large list can cause a slow parse.
+#BBMULTICONFIG ?= " cortexa72-0-versal-baremetal cortexa72-0-versal-freertos cortexa72-1-versal-baremetal cortexa72-1-versal-freertos microblaze-0-pmc microblaze-0-psm cortexr5-0-versal-baremetal cortexr5-0-versal-freertos cortexr5-1-versal-baremetal cortexr5-1-versal-freertos"
+# Alternatively trim the list to the minimum
+BBMULTICONFIG = " microblaze-0-pmc microblaze-0-psm"
 ```
 
 **NOTE: when compiling for Versal ACAP platforms, the path full path to the PDI must be specified**

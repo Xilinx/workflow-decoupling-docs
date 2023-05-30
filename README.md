@@ -60,7 +60,7 @@ By default, with no other inputs, Lopper will produce a Linux-compatible devicet
 
 #### Yocto Build Infrastructure
 
-The Xilinx Yocto Project manifests repository includes a tag which includes support for the decoupled workflow entitled **xlnx-rel-v2022.1_update2_sdt_experimental_beta**.  The Yocto build infrastructure is the core of the technical preview and all of the software build steps depend on it.
+The Xilinx Yocto Project manifests repository includes a tag which includes support for the decoupled workflow entitled **xlnx-rel-v2023.1**.  The Yocto build infrastructure is the core of the technical preview and all of the software build steps depend on it.
 
 # Decoupled Workflow Steps
 
@@ -87,7 +87,7 @@ The current version of the preview release has the following scope limitations:
 - Supports building Baremetal Apps/Libraries/examples using Yocto. 
 - Cortex-R5 CPU0 is only supported on Xilinx Zynq UltraScale+ MPSoC and Versal ACAP platforms. No R5-1 support in split mode.
 - Support exists only for a subset of `embeddedsw` components in this preview release, repo for the same can be found at [embeddedsw-experimental-dt-support](https://github.com/Xilinx/embeddedsw-experimental-dt-support)
-- Basic domain yaml support to partition the system into Linux and baremetal domains. This support is available through Yocto project manifests branch tag **xlnx-rel-v2022.1_update2_sdt_experimental_beta**. For more info on domain yaml, refer to [domain-yaml.md](domain-yaml.md) and [yocto-build.md](yocto-build.md)
+- Basic domain yaml support to partition the system into Linux and baremetal domains. This support is available through Yocto project manifests branch tag **xlnx-rel-v2023.1**. For more info on domain yaml, refer to [domain-yaml.md](domain-yaml.md) and [yocto-build.md](yocto-build.md)
 - Support for defining OpenAMP domains. More info on OpenAMP domains can be found here [openamp-build.md](openamp-build.md)
 
 **Future Roadmap:**
@@ -97,7 +97,6 @@ The current version of the preview release has the following scope limitations:
 - Support for all application and driver examples in the embeddedsw-experimental-dt-support repository.
 - Support for subsystem and isolation definitions.
 - Support for Zynq and MB platforms.
-- Extend Arm Cortex-R5 support to include CPU1
 
 # Asking Questions & Contributing
 

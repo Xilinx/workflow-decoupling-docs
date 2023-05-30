@@ -45,7 +45,7 @@ For Linux-based EDA hosts, fetch the SDTGen source code and fetch the appropriat
 
 ```
 $ git clone https://github.com/Xilinx/system-device-tree-xlnx.git
-$ git checkout -b xlnx_rel_v2022.1_sdt_experimental_beta origin/xlnx_rel_v2022.1_sdt_experimental_beta
+$ git checkout -b xlnx_rel_v2023.1_sdt_experimental_beta origin/xlnx_rel_v2023.1_sdt_experimental_beta
 ```
 
 The screenshots below shows fetching the SDTGen source code on a Windows-based host using TortoiseGit.

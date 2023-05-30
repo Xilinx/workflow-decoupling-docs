@@ -14,4 +14,4 @@ For example: A domain that comprises Linux (running at EL1-NS) along with the re
 This document covers only the basic baremetal and linux domain use cases, other domain use case like OpenAMP is covered at [this page](openamp-build.md).
 
 #### Yocto Build Infrastructure
-Yocto related support for domains is available in xlnx-rel-v2022.1-sdt-experimental-beta branch, please use this branch for domain testing.
+Yocto related support for domains is available in xlnx-rel-v2023.1 branch, please use this branch for domain testing.
