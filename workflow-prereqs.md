@@ -49,7 +49,7 @@ The decoupled workflow requires a mix of new and updated repositories.  The deta
 | ---------------------------------- | ------------------------------------------------------------ | ---------------------------- |
 | SDTGen (Generate System Devicetree) | [https://github.com/Xilinx/system-device-tree-xlnx](https://github.com/Xilinx/system-device-tree-xlnx) | xlnx_rel_v2023.1_sdt_experimental_beta                       |
 | Experimental `embeddedsw`          | [https://github.com/Xilinx/embeddedsw-experimental-dt-support](https://github.com/Xilinx/embeddedsw-experimental-dt-support) | xlnx_rel_v2023.1_sdt                   |
-| Lopper                             | [https://github.com/devicetree-org/lopper](https://github.com/devicetree-org/lopper) | v0.2022.x                      |
+| Lopper                             | [https://github.com/devicetree-org/lopper](https://github.com/devicetree-org/lopper) | v0.2023.x                      |
  | Yocto Manifests                    | [http://github.com/Xilinx/yocto-manifests.git](http://github.com/Xilinx/yocto-manifests.git) | xlnx-rel-v2023.1 |
 | U-Boot                             | [https://github.com/Xilinx/u-boot-xlnx](https://github.com/Xilinx/u-boot-xlnx) | xlnx_rel_v2023.1                       |
 | Linux                              | [https://github.com/Xilinx/linux-xlnx](https://github.com/Xilinx/linux-xlnx) | xlnx_rel_v2023.1                       |
