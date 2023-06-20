@@ -82,7 +82,7 @@ The current version of the preview release has the following scope limitations:
 **Supported in Current Release:**
 
 - The current beta release is only for Zynq UltraScale+ MPSoC and Versal ACAP
-- The current beta release only supports Xilinx Vivado 2022.1
+- The current beta release only supports Xilinx Vivado 2023.1
 - Zynq UltraScale+ MPSoC and Versal ACAP support for booting Linux on both hardware and QEMU
 - Supports building Baremetal Apps/Libraries/examples using Yocto. 
 - Cortex-R5 CPU0 is only supported on Xilinx Zynq UltraScale+ MPSoC and Versal ACAP platforms. No R5-1 support in split mode.
